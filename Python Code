@@ -1,0 +1,50 @@
+# known issues, WIP 
+
+def snail(snail_map):
+    snail_map_copy = snail_map        
+# input: LIST of LISTs
+#     print('Input: ', snail_map)
+# output: LIST
+    snail_array = []
+    output = []
+
+# special instructions for null or exceptionally small lists
+    if snail_map == [[]]:
+        return []
+    if len(snail_map) == 1:
+        for list in snail_map:
+            for number in list:
+                output.append(number)
+        return output
+    
+# while loop with exit criteria
+    while len(snail_map_copy) > 0:
+    
+# append the first list to output list and remove the used numbers from the copy list
+        snail_array.append(snail_map_copy[0])       # could use snail_array.append(snail_map_copy.pop(0))
+        snail_map_copy.remove(snail_map_copy[0])
+    
+# append the last element from each list to the output list and remove the used numbers from the copy list
+        for i, list in enumerate(snail_map_copy):
+            if i == len(list)-1:
+                continue
+            snail_array.append([list.pop()])        # made edits here, check if still working
+        
+# append the last indexed list to the ouptput list in reverse order and remove the used numbers from the copy list
+        snail_array.append(snail_map_copy[-1][::-1])
+        snail_map_copy.pop()
+
+# ---> START HERE <---
+
+# going from bottom to top, append the first element from each list to the output list and remove the used numbers from the copy list
+        for i, list in enumerate(snail_map_copy[::-1]):
+            snail_array.append([snail_map_copy[i][0]])
+            list.remove(snail_map_copy[i][0])
+        print('output:', snail_array, 'copy:', snail_map_copy)
+        
+# flatten the output array
+    for list in snail_array:
+        for number in list:
+            output.append(number)
+    
+    return output
