@@ -1,5 +1,3 @@
-# known issues, WIP 
-
 def snail(snail_map):
     snail_map_copy = snail_map        
 # input: LIST of LISTs
@@ -31,17 +29,19 @@ def snail(snail_map):
             snail_array.append([list.pop()])        # made edits here, check if still working
         
 # append the last indexed list to the ouptput list in reverse order and remove the used numbers from the copy list
-        snail_array.append(snail_map_copy[-1][::-1])
-        snail_map_copy.pop()
-
-# ---> START HERE <---
+        if len(snail_map_copy) == 1:
+            snail_array.append(snail_map_copy[0][::-1])
+            snail_map_copy.pop()
+        elif len(snail_map_copy) > 1:
+            snail_array.append(snail_map_copy[-1][::-1])
+            snail_map_copy.pop()
 
 # going from bottom to top, append the first element from each list to the output list and remove the used numbers from the copy list
         for i, list in enumerate(snail_map_copy[::-1]):
-            snail_array.append([snail_map_copy[i][0]])
-            list.remove(snail_map_copy[i][0])
-        print('output:', snail_array, 'copy:', snail_map_copy)
-        
+            snail_array.append([snail_map_copy[::-1][i].pop(0)])
+            
+        continue
+            
 # flatten the output array
     for list in snail_array:
         for number in list:
